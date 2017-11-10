@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009" 
+			   xmlns:s="library://ns.adobe.com/flex/spark" 
+			   xmlns:mx="library://ns.adobe.com/flex/mx" minWidth="955" minHeight="600">
+	
+	<fx:Script>
+		<![CDATA[
+			import mx.collections.ArrayCollection;
+			import mx.controls.Alert;
+			import mx.utils.ObjectUtil;
+			
+			[Bindable] private var _dragCollec:ArrayCollection;
+			[Bindable] private var _dropCollec:ArrayCollection;
+			
+			protected function initialiserData(event:MouseEvent):void
+			{
+				_dragCollec = new ArrayCollection( new Array() );
+				_dropCollec = new ArrayCollection( new Array() );
+
+				var i:int = 0;
+				for ( i ; i < 10 ; i++ ){
+					_dragCollec.addItem( "Item " + i );
+				}
+			}
+
+
+			protected function afficherArrayCollection(event:MouseEvent):void
+			{
+				Alert.show( ObjectUtil.toString( _dragCollec ), "Contenu de _dragCollec" );
+				Alert.show( ObjectUtil.toString( _dropCollec ), "Contenu de _dropCollec" );
+			}
+
+		]]>
+	</fx:Script>
+	
+	<s:Button label="Initialiser" click="initialiserData(event)" top="10" left="10" />
+	<s:Button label="Afficher" click="afficherArrayCollection(event)" top="30" left="10" />
+	
+	<s:HGroup horizontalCenter="0" verticalCenter="0" gap="20">
+		<s:List width="400" dataProvider="{ _dragCollec }" dragEnabled="true" dragMoveEnabled="true" />
+		<s:List width="400" dataProvider="{ _dropCollec }" dropEnabled="true" />
+	</s:HGroup>
+	
+	
+</s:Application>
